@@ -2,83 +2,35 @@
 
 ## Celebrity Modeli
 
- public class Celebrity
- {
-     public int Id { get; set; } // Kişinin Id'si
-     public string Name { get; set; } // Kişinin adı
-     public string Profession { get; set; } // Kişinin mesleği
-   
- }
+![image](https://github.com/user-attachments/assets/fd1f9338-1cab-4819-b24d-43ca8840554e)
+
 
 ## CelebritiesController 
 
 ### static liste
 
-  private static readonly List<Celebrity> celebrities = new List<Celebrity>()
-  {
-      new Celebrity{Id=1,Name="Tarkan",Profession="Pop Müzik Sanatçısı"},
-      new Celebrity{Id=2,Name="Sıla",Profession="Pop Müzik Sanatçısı"},
-      new Celebrity{Id=3,Name="Kenan İmirzalıoğlu",Profession="Oyuncu"},
-      new Celebrity{Id=4,Name="Bergüzar Korel",Profession="Oyuncu"}
+![image](https://github.com/user-attachments/assets/d67deed0-892a-44dc-aa10-3eeb4aeb91ea)
 
-  };
 
 ## Http Yöntemleri
 
 - [HttpGet("{id}")] : Listede istenen Id olan çağırılır. Nesne bulunursa Id sahip nesne döner 200 bulunamazsa 404 NotFound
 
-  [HttpGet("{id}")] // uri kısmında id var
-  public ActionResult<Celebrity> Get(int id)
-  {
-      var celebrity = celebrities.FirstOrDefault(x => x.Id == id);
-      // celebrities listesinden linq sorgusu ile id eşleşen nesneyi alırız.
-      if (celebrity == null)
-      {
-          // eşleşen nesne olmadığı zaman bu kısım çalışır.
-          return NotFound();
-      }
-      // eşleşen nesne bulunur ve 200 ile o nesne döner.
-      return Ok(celebrity);
-  }
+![image](https://github.com/user-attachments/assets/c1d1cf1f-b073-4da4-9a24-46fddcd731c8)
+
   
 - [HttpPost] : Listeye yeni bir nesne eklenir.
-  [HttpPost]
-    public ActionResult<Celebrity> Post([FromBody] Celebrity celebrity)
-    {
-        celebrity.Id = celebrities.Max(x => x.Id) + 1;
-        // listedeki en yüksek id bulunur yeni oluşturulan nesneye bu id atanır.
-        celebrities.Add(celebrity);
-        // oluşturulan nesne listeye aktarılır.
-        return CreatedAtAction(nameof(Get), new { id = celebrity.Id }, celebrity);
-        // Http 201 Created durumu döner ve get metodu ile eklenen nesne getirilir. 
-    }
+
+![image](https://github.com/user-attachments/assets/0488d421-ca80-4136-bcdb-2b09680d1d0e)
+
   
 - [HttpPut("{id}")] : Listede güncellemek istenen Id girilir. Listede girilen Id yoksa 404 Not Found döner. Id listede yer alıyorsa body kısmından veriler değiştirilir ve geriye 204 No Content döner.
-   [HttpPut("{id}")] // uri kısmında id var
- public IActionResult Put(int id, [FromBody] Celebrity updatedCelebrity)
- {
-     var celebrity = celebrities.FirstOrDefault(x => x.Id == id);
-     // celebrities listesinden linq sorgusu ile id eşleşen nesneyi alırız.
-     if (celebrity == null)  // eşleşen nesne olmadığı zaman bu kısım çalışır.
-         return NotFound(); // 404 Not Found döner
 
-     // Body gelen nesne propertyleri aktarılır
-     celebrity.Name = updatedCelebrity.Name;
-     celebrity.Profession = updatedCelebrity.Profession;
-     // geriye 204 No Content döner
-     return NoContent();
- }
+![image](https://github.com/user-attachments/assets/a871d2a5-a0a6-43ba-8864-0b86f53a9606)
+
   
 - [HttpDelete("{id}")] : Listede silinmek istenen Id girilir. Eğer listede Id yoksa 404 Not Found döner. Id listede yer alıyorsa nesne listeden silinir ve geriye 204 No Content döner.
-  [HttpDelete("{id}")] // uri kısmında id var
-    public IActionResult Delete(int id)
-    {
-        var celebrity = celebrities.FirstOrDefault(x=>x.Id == id);
-        // celebrities listesinden linq sorgusu ile id eşleşen nesneyi alırız.
-        if (celebrity == null) // eşleşen nesne olmadığı zaman bu kısım çalışır.
-            return NotFound(); // 404 Not Found döner
-        celebrities.Remove(celebrity); // celebrities listesinden celebrity nesnesi silinir.
-        return NoContent(); // geriye 204 No Content döner
-    }
+
+  ![image](https://github.com/user-attachments/assets/250bd626-e8fb-499e-8dbd-8bcfe6e2245b)
 
 
